@@ -10,6 +10,8 @@ module.exports = async function stripeToCrystallizeOrderModel({
     paymentIntentId
   );
 
+  console.log(paymentIntent);
+
   const { data } = paymentIntent.charges;
   const charge = data[0];
 
