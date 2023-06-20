@@ -12,7 +12,6 @@ module.exports = async function stripeToCrystallizeOrderModel({
     }
   );
 
-  // const { data } = paymentIntent.latest_charge;
   const charge = paymentIntent.latest_charge;
 
   const customerName = charge.billing_details.name.split(" ");
