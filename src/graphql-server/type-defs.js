@@ -167,6 +167,7 @@ module.exports = gql`
   input CheckoutModelInput {
     basketModel: BasketModelInput!
     customer: OrderCustomerInput
+    delivery: Int
     confirmationURL: String!
     checkoutURL: String!
     termsURL: String!

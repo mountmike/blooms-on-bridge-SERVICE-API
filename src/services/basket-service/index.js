@@ -134,10 +134,11 @@ module.exports = {
       total.discount = discountAmount;
     }
 
+
     return {
       voucher,
       cart: cartWithVoucher,
-      total,
+      total
     };
   },
 };
