@@ -18,6 +18,7 @@ module.exports = async function createPaymentIntent({
     currency: basket.total.currency,
     confirm,
     payment_method: paymentMethodId,
+    receipt_email: checkoutModel.customer.addresses[0].email || "test@test.com"
   });
 
   return paymentIntent;

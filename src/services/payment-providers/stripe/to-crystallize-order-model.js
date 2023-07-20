@@ -13,6 +13,8 @@ module.exports = async function stripeToCrystallizeOrderModel({
   );
 
   const charge = paymentIntent.latest_charge;
+  const { addresses } = checkoutModel.customer
+  const metadata = `CUSTOMER NOTES:`
 
   const customerName = charge.billing_details.name.split(" ");
   let email = charge.receipt_email;
@@ -49,28 +51,28 @@ module.exports = async function stripeToCrystallizeOrderModel({
           firstName: customerName[0],
           middleName: customerName.slice(1, customerName.length - 1).join(),
           lastName: customerName[customerName.length - 1],
-          street: charge.billing_details.address.line1,
-          street2: charge.billing_details.address.line2,
-          postalCode: charge.billing_details.address.postal_code,
-          city: charge.billing_details.address.city,
-          state: charge.billing_details.address.state,
+          street: addresses[0].unitNumber,
+          street2: addresses[0].streetNumber + " " + addresses[0].streetName,
+          postalCode: addresses[0].postcode,
+          city: addresses[0].suburb,
+          state: addresses[0].territory,
           country: charge.billing_details.address.country,
-          phone: charge.billing_details.phone,
-          email,
+          phone: addresses[0].phone,
+          email: addresses[0].email,
         },
         {
           type: "delivery",
           firstName: customerName[0],
           middleName: customerName.slice(1, customerName.length - 1).join(),
           lastName: customerName[customerName.length - 1],
-          street: charge.billing_details.address.line1,
-          street2: charge.billing_details.address.line2,
-          postalCode: charge.billing_details.address.postal_code,
-          city: charge.billing_details.address.city,
-          state: charge.billing_details.address.state,
-          country: charge.billing_details.address.country,
-          phone: charge.billing_details.phone,
-          email,
+          street: "Requested delivery date:",
+          street2: null,
+          postalCode: null,
+          city: null,
+          state: null,
+          country: null,
+          phone: addresses[0].deliveryDate,
+          email: null,
         },
       ],
     },
@@ -85,7 +87,7 @@ module.exports = async function stripeToCrystallizeOrderModel({
           paymentMethodId: charge.payment_method,
           paymentIntentId: charge.payment_intent,
           subscriptionId: charge.subscription,
-          metadata: "",
+          metadata,
         },
       },
     ],

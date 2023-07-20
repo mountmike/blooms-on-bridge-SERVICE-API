@@ -176,6 +176,7 @@ module.exports = gql`
   input OrderCustomerInput {
     firstName: String
     lastName: String
+    deliveryDate: String
     addresses: [AddressInput!]
   }
 
@@ -187,12 +188,18 @@ module.exports = gql`
     lastName: String
     street: String
     street2: String
-    streetNumber: String
     postalCode: String
     city: String
     state: String
     country: String
     phone: String
+    unitNumber: String
+    streetNumber: String
+    streetName: String
+    suburb: String
+    territory: String
+    postcode: String
+    deliveryDate: String
   }
 
   type PaymentProvidersMutations {
