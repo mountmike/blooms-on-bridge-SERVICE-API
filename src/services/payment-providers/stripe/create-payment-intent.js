@@ -11,8 +11,6 @@ module.exports = async function createPaymentIntent({
 
   const basket = await basketService.get({ basketModel, context });
 
-  console.log(JSON.stringify(basket.total.gross));
-
   const paymentIntent = await getClient().paymentIntents.create({
     amount: basket.total.gross * 100,
     currency: basket.total.currency,
