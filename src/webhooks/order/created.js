@@ -7,12 +7,13 @@ module.exports = async function orderCreated(payload) {
   /*
   * Fulfil Order using Amazon's FBA
   */
-  const FBAResponse = await handleFBAFulfilment(payload)
-  console.log("Products resolved", JSON.stringify(FBAResponse, null, 2))
+  // const FBAResponse = await handleFBAFulfilment(payload)
+  // console.log("Products resolved", JSON.stringify(FBAResponse, null, 2))
   /**
    * You can send out an order confirmation email here
    * if you like
    */
   await emailService.sendOrderConfirmation(payload.id);
-  return FBAResponse
+  console.log("line 17 here")
+  // return FBAResponse
 };
