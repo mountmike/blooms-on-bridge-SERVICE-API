@@ -13,6 +13,6 @@ module.exports = async function orderCreated(payload) {
    * You can send out an order confirmation email here
    * if you like
    */
-  await emailService.sendOrderConfirmation(payload.order.data.id);
+  await emailService.sendOrderConfirmation(payload.id);
   return FBAResponse
 };

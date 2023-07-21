@@ -22,4 +22,3 @@ module.exports = async function createPaymentIntent({
   return paymentIntent;
 };
 
-
