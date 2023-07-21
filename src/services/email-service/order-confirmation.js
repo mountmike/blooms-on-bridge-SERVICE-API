@@ -69,6 +69,7 @@ module.exports = async function sendOrderConfirmation(orderId) {
 
     await sendEmail({
       to: email,
+      from: 'micktharratt@hotmail.com',
       subject: "Order summary",
       html,
     });
