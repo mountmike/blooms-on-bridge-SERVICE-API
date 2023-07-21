@@ -8,7 +8,7 @@ module.exports = async function sendOrderConfirmation(orderId) {
 
     const order = await orders.get(orderId);
 
-    console.log(orderId + "IM HERE");
+    console.log(orderId + " IM HERE");
 
     const { email } = order.customer.addresses[0];
 
