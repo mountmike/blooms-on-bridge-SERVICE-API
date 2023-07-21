@@ -14,7 +14,7 @@ module.exports = async function stripeToCrystallizeOrderModel({
 
   const charge = paymentIntent.latest_charge;
   const { addresses } = checkoutModel.customer
-  const metadata = `CUSTOMER NOTES:`
+  const metadata = `DELIVERY DATE ${checkoutModel.customer.deliveryDate} CUSTOMER NOTES: ${checkoutModel.customer.notes}`
 
   const customerName = charge.billing_details.name.split(" ");
   let email = charge.receipt_email;
@@ -65,14 +65,14 @@ module.exports = async function stripeToCrystallizeOrderModel({
           firstName: customerName[0],
           middleName: customerName.slice(1, customerName.length - 1).join(),
           lastName: customerName[customerName.length - 1],
-          street: "Requested delivery date:",
-          street2: null,
-          postalCode: null,
-          city: null,
-          state: null,
-          country: null,
-          phone: addresses[0].deliveryDate,
-          email: null,
+          street: addresses[1].unitNumber,
+          street2: addresses[1].streetNumber + " " + addresses[1].streetName,
+          postalCode: addresses[1].postcode,
+          city: addresses[1].suburb,
+          state: addresses[1].territory,
+          country: charge.billing_details.address.country,
+          phone: addresses[1].phone,
+          email: addresses[1].email,
         },
       ],
     },

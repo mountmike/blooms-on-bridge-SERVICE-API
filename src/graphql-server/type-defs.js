@@ -176,6 +176,9 @@ module.exports = gql`
   input OrderCustomerInput {
     firstName: String
     lastName: String
+    email: String
+    phone: String
+    notes: String
     deliveryDate: String
     addresses: [AddressInput!]
   }
@@ -183,6 +186,7 @@ module.exports = gql`
   input AddressInput {
     type: String
     email: String
+    phone: String
     firstName: String
     middleName: String
     lastName: String
@@ -192,7 +196,6 @@ module.exports = gql`
     city: String
     state: String
     country: String
-    phone: String
     unitNumber: String
     streetNumber: String
     streetName: String
