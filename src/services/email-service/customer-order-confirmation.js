@@ -1,4 +1,4 @@
-module.exports = async function sendOrderConfirmation(orderId) {
+module.exports = async function sendCustomerOrderConfirmation(orderId) {
   try {
     const mjml2html = require("mjml");
 
@@ -7,8 +7,6 @@ module.exports = async function sendOrderConfirmation(orderId) {
     const { sendEmail } = require("./utils");
 
     const order = await orders.get(orderId);
-
-    console.log(orderId + " IM HERE");
 
     const { email } = order.customer.addresses[0];
 
