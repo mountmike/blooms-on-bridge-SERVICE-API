@@ -8,7 +8,10 @@ module.exports = async function sendStoreOrderConfirmation(orderId) {
 
     const order = await orders.get(orderId);
 
-    const { email } = order.customer.addresses[0];
+    const isPickup = order.cart.filter(product => product.sku === "delivery-pickup-from-shop").length > 0
+    const deliveryMethod = order.cart.filter(product => product.sku.startsWith("delivery"))[0]
+    const { email, phone } = order.customer.addresses[0];
+    const delivery = order.customer.addresses[1]
 
     if (!email) {
       return {
@@ -23,16 +26,43 @@ module.exports = async function sendStoreOrderConfirmation(orderId) {
         <mj-section>
           <mj-column>
             <mj-text>
-              <h1>New Order Summary</h1>
-              <p>New order alert!</p>
+              <h1>New Order Alert</h1>
               <p>
                 Order Number: <strong>#${order.id}</strong>
               </p>
+              <h3>Customer Details:</h3>
               <p>
                 First name: <strong>${order.customer.firstName}</strong><br />
                 Last name: <strong>${order.customer.lastName}</strong><br />
                 Email address: <strong>${email}</strong>
+                Phone: <strong>${phone}</strong>
               </p>
+              <p>
+                Additional info: <br />
+                <strong>#${order.additionalInformation}</strong>
+              </p>
+              <h2>Delivery Details:</h2>
+              ${isPickup ?
+              `
+              <p>
+                Delivery method: <strong>${deliveryMethod.name}</strong><br />
+                Requested date: <strong>This is a placeholder</strong><br />
+              </p>
+              `
+              :
+              `
+              <p>
+                Delivery method: <strong>${deliveryMethod.name}</strong><br />
+                Requested date: <strong>This is a placeholder</strong><br />
+              </p>
+              <p>
+                Recipient first name: <strong>${delivery.firstName}</strong><br />
+                Recipient last name: <strong>${delivery.lastName}</strong><br />
+                Recipient email address: <strong>${delivery.email}</strong>
+                Recipient phone: <strong>${delivery.phone}</strong>
+              </p>
+              `
+              }
               <p>
                 Total: <strong>${formatCurrency({
                   amount: order.total.gross,
@@ -68,7 +98,7 @@ module.exports = async function sendStoreOrderConfirmation(orderId) {
     await sendEmail({
       to: "tharratt.michael@gmail.com",
       from: 'micktharratt@hotmail.com',
-      subject: "Order summary",
+      subject: `New Online Order: ${order.id}`,
       html,
     });
 

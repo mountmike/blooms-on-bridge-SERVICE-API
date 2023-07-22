@@ -14,7 +14,7 @@ module.exports = async function stripeToCrystallizeOrderModel({
 
   const charge = paymentIntent.latest_charge;
   const { addresses } = checkoutModel.customer
-  const metadata = `DELIVERY DATE ${checkoutModel.customer.deliveryDate} CUSTOMER NOTES: ${checkoutModel.customer.notes}`
+  const customerNotes = `DELIVERY DATE ${checkoutModel.customer.deliveryDate} CUSTOMER NOTES: ${checkoutModel.customer.notes}`
 
   const customerName = charge.billing_details.name.split(" ");
   let email = charge.receipt_email;
@@ -39,6 +39,7 @@ module.exports = async function stripeToCrystallizeOrderModel({
     cart: basket.cart,
     total: basket.total,
     meta,
+    additionalInformation: customerNotes,
     customer: {
       identifier: customerIdentifier,
       firstName: customerName[0],
@@ -87,7 +88,7 @@ module.exports = async function stripeToCrystallizeOrderModel({
           paymentMethodId: charge.payment_method,
           paymentIntentId: charge.payment_intent,
           subscriptionId: charge.subscription,
-          metadata,
+          metadata: customerNotes,
         },
       },
     ],

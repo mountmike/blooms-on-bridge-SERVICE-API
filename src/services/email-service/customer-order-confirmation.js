@@ -8,7 +8,7 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
 
     const order = await orders.get(orderId);
 
-    const { email } = order.customer.addresses[0];
+    const { email, phone } = order.customer.addresses[0];
 
     if (!email) {
       return {
@@ -24,7 +24,7 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
           <mj-column>
             <mj-text>
               <h1>Order Summary</h1>
-              <p>Thanks for your order! This email contains a copy of your order for your reference.</p>
+              <p>Thanks for supporting your local florist! This email contains a copy of your order for your reference.</p>
               <p>
                 Order Number: <strong>#${order.id}</strong>
               </p>
@@ -32,6 +32,7 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
                 First name: <strong>${order.customer.firstName}</strong><br />
                 Last name: <strong>${order.customer.lastName}</strong><br />
                 Email address: <strong>${email}</strong>
+                Phone: <strong>${phone}</strong>
               </p>
               <p>
                 Total: <strong>${formatCurrency({
@@ -48,9 +49,7 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
               </tr>
               ${order.cart.map(
                 (item) => `<tr>
-                  <td style="padding: 0 15px 0 0;">${item.name} (${
-                  item.sku
-                })</td>
+                  <td style="padding: 0 15px 0 0;">${item.name}</td>
                   <td style="padding: 0 15px;">${item.quantity}</td>
                   <td style="padding: 0 0 0 15px;">${formatCurrency({
                     amount: item.price.gross * item.quantity,
@@ -59,6 +58,11 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
                 </tr>`
               )}
             </mj-table>
+            <mj-text>
+              <h3>Blooms on Bridge</h1>
+              <p>15 Bridge Street, Benalla, Victoria, 3672</p>
+              <p>03 5762 5588</p>
+            </mj-text>
           </mj-column>
         </mj-section>
         </mj-body>
@@ -68,7 +72,7 @@ module.exports = async function sendCustomerOrderConfirmation(orderId) {
     await sendEmail({
       to: email,
       from: 'micktharratt@hotmail.com',
-      subject: "Order summary",
+      subject: "Blooms on Bridge | Order summary",
       html,
     });
 
