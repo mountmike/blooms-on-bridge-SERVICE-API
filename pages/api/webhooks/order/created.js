@@ -8,10 +8,8 @@ import orderCreated from "../../../../src/webhooks/order/created";
 
 export default async function webhookOrderCreated(req, res) {
   try {
-    const [customerEmail, storeEmail] = await orderCreated(req.body);
-    res.status(200).send(storeEmail);
-    // res.status(200).write(storeEmail);
-    // res.end()
+    const response = await orderCreated(req.body);
+    res.status(200).send(response);
   } catch (e) {
     console.log("Error at orderCreated webhook");
     console.log(e);
