@@ -1,30 +1,20 @@
-# Service API on Vercel serverless functions
+# Service API for Blooms on Bridge shop
 
-Serverless API for a [best of breed headless architecture](https://crystallize.com/blog/headless-architecture-with-best-of-breed-stacks).
-
-The Service API comes with the following features:
+This service API was bootstrapped off a [Crystallize][1] boilerplate to power the following features on my [NextJS ecommerce store][2] for Blooms on Bridge:
 
 - User authentication with magic link
 - Basket with cart validation
 - Voucher codes
-- Checkout with Stripe, Mollie, Klarna or Vipps
-- A lot of Crystallize webhooks examples
+- Checkout with Stripe
+- Crystallize webhooks (SendGrid email notifications)
 
----
 
-## Environment variables
-
-For local deveopment you have these two files to help setting the secrets:
-
-`.env`
-
-Will be included in git. Typically includes the Crystallize tenant identifier and other things that are not considered sensitive information
-
-`.env.local`
-
-Sensitive information, excluded from git. Example of what goes here is Crystallize Access tokens, JWT token secret and payment provider client keys.
 
 ## Vercel serverless functions
 
-Learn more about how to work with Vercel serverless functions here:
+Learn more about Vercel serverless functions here:
 https://vercel.com/docs/serverless-functions/introduction
+
+
+[1]: https://crystallize.com/
+[2]: https://github.com/mountmike/Blooms-on-Bridge-Crystallize
